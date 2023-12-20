@@ -80,36 +80,7 @@ public abstract class AbstractJobManager : IJobManager
     }
 
 
-    public IList<JobInfo> GetJobs()
-        => this.repository.GetList<JobInfo>();
-
-
-    public JobInfo? GetJob(string jobIdentifier)
-        => this.repository.Get<JobInfo>(jobIdentifier);
-
-
-    public void Cancel(string jobIdentifier)
-    {
-        var job = this.repository.Get<JobInfo>(jobIdentifier);
-        if (job != null)
-        {
-            this.CancelNative(job);
-            this.repository.Remove<JobInfo>(jobIdentifier);
-        }
-    }
-
-
-    public virtual void CancelAll()
-    {
-        var jobs = this.repository.GetList<JobInfo>();
-        foreach (var job in jobs)
-        {
-            if (!job.IsSystemJob)
-            {
-                this.CancelJob(job);
-            }
-        }
-    }
+   
 
 
     void CancelJob(JobInfo job)

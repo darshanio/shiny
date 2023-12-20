@@ -23,18 +23,6 @@ public interface IJobManager
 
 
     /// <summary>
-    /// Fires just as a job is about to start
-    /// </summary>
-    IObservable<JobInfo> JobStarted { get; }
-
-
-    /// <summary>
-    /// Fires as each job finishes
-    /// </summary>
-    IObservable<JobRunResult> JobFinished { get; }
-
-
-    /// <summary>
     /// Requests/ensures appropriate platform permissions where necessary
     /// </summary>
     /// <returns></returns>
@@ -45,18 +33,8 @@ public interface IJobManager
     /// This force runs the manager and any registered jobs
     /// </summary>
     /// <param name="cancelToken"></param>
-    /// <param name="runSequentially"></param>
     /// <returns></returns>
-    Task<IEnumerable<JobRunResult>> RunAll(CancellationToken cancelToken = default, bool runSequentially = false);
-
-
-    /// <summary>
-    /// Run a specific job adhoc
-    /// </summary>
-    /// <param name="jobIdentifier"></param>
-    /// <param name="cancelToken"></param>
-    /// <returns></returns>
-    Task<JobRunResult> Run(string jobIdentifier, CancellationToken cancelToken = default);
+    Task<IEnumerable<JobRunResult>> Run(CancellationToken cancelToken = default);
 
 
     /// <summary>

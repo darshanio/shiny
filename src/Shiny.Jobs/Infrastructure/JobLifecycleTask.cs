@@ -104,6 +104,8 @@ public class JobLifecycleTask : ShinyLifecycleTask, IDisposable
 
     async Task RunJobs()
     {
+        // TODO: this doesn't allow job manager to say it is running already
+            // the platform engine could engage jobs alongside this timer which is bad, we need IsRunning flag set
         this.timer.Stop();
         this.logger.LogDebug("Starting foreground jobs");
         
@@ -152,6 +154,8 @@ public class JobLifecycleTask : ShinyLifecycleTask, IDisposable
         }
         else
         {
+            // TODO: what if timer was stopped due to a run state
+            // TODO: could still be running timer loop due to GPS keepalive  
             this.timer.Stop();
             this.logger.LogDebug("App foreground - starting foreground timer");
             this.timer.Interval = Interval.TotalMilliseconds;
